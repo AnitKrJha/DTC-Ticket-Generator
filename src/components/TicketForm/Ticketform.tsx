@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { formData } from "../../App";
 import TicketBtn from "../Ticket/TicketBtn";
 import { getColorInfo } from "../../utils/getColorData";
