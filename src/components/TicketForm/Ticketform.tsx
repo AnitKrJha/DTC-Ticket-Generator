@@ -15,7 +15,6 @@ const BusForm = ({
   formData,
   setShowTicket,
   setTickets,
-  tickets,
 }: Props) => {
   // Function to handle form field changes
   const handleChange = (e: any) => {

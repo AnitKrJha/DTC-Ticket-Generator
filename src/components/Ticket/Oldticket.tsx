@@ -1,4 +1,3 @@
-import React from "react";
 import { formData } from "../../App";
 import { getColorInfo } from "../../utils/getColorData";
 import TicketBtn from "./TicketBtn";
@@ -8,7 +7,7 @@ interface props {
   handleDelete: (index: any) => void;
 }
 const Oldticket = ({ data, handleDelete, handleEdit }: props) => {
-  const { border_class: borderColorClass, bg_class } = getColorInfo(data.color);
+  const { border_class: borderColorClass } = getColorInfo(data.color);
 
   return (
     <div
