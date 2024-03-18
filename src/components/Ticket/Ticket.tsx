@@ -10,9 +10,7 @@ const Ticket = ({ formData, setShowTicket }: Props) => {
   const { bg_class, fare } = getColorInfo(formData.color);
 
   return (
-    <div
-      className={`${bg_class} flex w-full justify-center items-center min-h-dvh px-4 relative`}
-    >
+    <>
       <button
         className="absolute top-4 right-4 bg-white border-0  text-black px-2 py-1 rounded"
         onClick={() => setShowTicket(false)}
@@ -31,9 +29,9 @@ const Ticket = ({ formData, setShowTicket }: Props) => {
         <BusTiming />
         <BusStops start={formData.startingStop} end={formData.endingStop} />
         <TicketCode />
-        <TicketBtn bg={bg_class} />
+        <TicketBtn bgClass={bg_class} />
       </div>
-    </div>
+    </>
   );
 };
 
@@ -70,7 +68,8 @@ const BusRouteRow = ({
   );
 };
 const BusTiming = () => {
-  const currentDate: Date = new Date();
+  let currentTime = Date.now();
+  const currentDate: Date = new Date(currentTime - 3 * 60 * 1000);
   const yyyy: number = currentDate.getFullYear();
   let mm: string | number = currentDate.getMonth() + 1;
   mm = mm < 10 ? "0" + mm : mm;

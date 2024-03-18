@@ -6,12 +6,21 @@ interface Props {
   formData: formData;
   setFormData: (a: any) => void;
   setShowTicket: (a: any) => void;
+  setTickets: (a: any) => void;
+  tickets: formData[];
 }
 
-const BusForm = ({ setFormData, formData, setShowTicket }: Props) => {
+const BusForm = ({
+  setFormData,
+  formData,
+  setShowTicket,
+  setTickets,
+  tickets,
+}: Props) => {
   // Function to handle form field changes
   const handleChange = (e: any) => {
     const { name, value } = e.target;
+
     setFormData({
       ...formData,
       [name]: value,
@@ -22,23 +31,25 @@ const BusForm = ({ setFormData, formData, setShowTicket }: Props) => {
   const handleSubmit = (event: any) => {
     event.preventDefault();
     console.log(formData);
+    // const savedTickets = JSON.parse(localStorage.getItem("tickets")!) || [];
+    // savedTickets.push(formData);
+    setTickets((tickets: formData[]) => {
+      localStorage.setItem("tickets", JSON.stringify([...tickets, formData]));
+      return [...tickets, formData];
+    });
     setShowTicket(true);
     // You can further process or send the form data here
   };
   const colors = [
     { id: "red", value: "red", class: "bg-red-500" },
     { id: "orange", value: "orange", class: "bg-orange-600" },
-    { id: "blue", value: "blue", class: "bg-blue-600" },
+    { id: "blue", value: "blue", class: "bg-blue-800" },
     { id: "sky", value: "sky", class: "bg-sky-500" },
     { id: "green", value: "green", class: "bg-green-600" },
   ];
 
   return (
-    <div
-      className={`${
-        getColorInfo(formData.color).bg_class
-      } flex w-full justify-center items-center min-h-dvh px-4 `}
-    >
+    <>
       <form
         onSubmit={handleSubmit}
         className="flex flex-col max-w-96 w-full mx-auto bg-white  rounded-lg outline outline-gray-300 outline-1 shadow p-3 gap-2"
@@ -90,9 +101,10 @@ const BusForm = ({ setFormData, formData, setShowTicket }: Props) => {
               value={formData.startingStop}
               onChange={handleChange}
             >
-              <option value="NSUT">
+              <option value="N.S.I.T Dwarka">
                 Netaji Subhas University of Technology
               </option>
+              <option value="Dwarka Mor">Dwarka Mod</option>
               <option value="PowerHouse">Power House Najafgarh</option>
               <option value="ArjunPark">Arjun Park</option>
             </select>
@@ -108,9 +120,10 @@ const BusForm = ({ setFormData, formData, setShowTicket }: Props) => {
               value={formData.endingStop}
               onChange={handleChange}
             >
-              <option value="NSUT">
+              <option value="N.S.I.T Dwarka">
                 Netaji Subhas University of Technology
               </option>
+              <option value="Dwarka Mor">Dwarka Mod</option>
               <option value="PowerHouse">Power House Najafgarh</option>
               <option value="ArjunPark">Arjun Park</option>
             </select>
@@ -147,12 +160,12 @@ const BusForm = ({ setFormData, formData, setShowTicket }: Props) => {
         <div className="button mt-4">
           <TicketBtn
             type="submit"
-            bg={getColorInfo(formData.color).bg_class}
+            bgClass={getColorInfo(formData.color).bg_class}
             content="Generate Ticket"
           />
         </div>
       </form>
-    </div>
+    </>
   );
 };
 
